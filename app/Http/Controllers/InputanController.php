@@ -97,9 +97,13 @@ class InputanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(inputan_model $inputan_model)
+    public function edit($id)
     {
-        //
+        $inputan = inputan_model::findOrFail($id);
+        $inputBerkass = input_berkas::all();
+        $jenisLayanans = jenis_layanan_model::all();
+
+        return view('pages.inputan.edit_inputan', compact('inputan', 'inputBerkass', 'jenisLayanans'));
     }
 
     /**

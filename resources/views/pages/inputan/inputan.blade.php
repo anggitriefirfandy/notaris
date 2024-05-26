@@ -54,7 +54,7 @@
                                                 @csrf
                                                 <button class="btn btn-danger mb-1 mr-1 rounded-circle show_confirm" data-toggle="tooltip" title='Delete' type="submit"><i class="bx bx-trash bx-sm"></i></button>
                                             </form>
-										    <a href="/cetakagenda?inputanid={{$value->uid}}" target="_blank" class="dropdown-item">Cetak</a>
+										    <a href="/cetakagenda?inputanid={{$value->uid}}" target="_blank" class="btn btn-primary mb-1 mr-1 " data-toggle="tooltip" title='Cetak'>Cetak</a>
                                         </td>
                                     </tr>
                                 @endforeach
