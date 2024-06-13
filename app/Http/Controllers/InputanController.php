@@ -97,21 +97,47 @@ class InputanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    // public function edit($id)
+    // {
+    //     $data['inp'] = inputan_model::where('uid', $id)->first();
+    //     return $data;
+
+    //     return view('pages.inputan.edit_inputan', $data);
+    // }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    // InputanController.php
+    // InputanController.php
     public function edit($id)
     {
-        $inputan = inputan_model::findOrFail($id);
+        // Log::info('Edit ID: ' . $id);
+        $inputan = inputan_model::find($id);
+        if (!$inputan) {
+            return redirect()->route('inputan.index')->with('error', 'Data tidak ditemukan.');
+        }
+
         $inputBerkass = input_berkas::all();
         $jenisLayanans = jenis_layanan_model::all();
 
         return view('pages.inputan.edit_inputan', compact('inputan', 'inputBerkass', 'jenisLayanans'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, inputan_model $inputan_model)
+    public function update(Request $request, $id)
     {
-        //
+        $inputan = inputan_model::find($id);
+        if (!$inputan) {
+            return redirect()->route('inputan.index')->with('error', 'Data tidak ditemukan.');
+        }
+
+        $inputan->update([
+            'input_berkas_id' => $request->input_berkas_id,
+            'jenis_layanan_id' => $request->jenis_layanan_id,
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('inputan.index')->with('success', 'Data berhasil diperbarui.');
     }
 
     /**

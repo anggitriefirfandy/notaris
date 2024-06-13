@@ -12,13 +12,15 @@
                 <div class="card-body">
                     <form id="dynamicForm" action="{{ route('inputan.update', $inputan->id) }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
+                        @method('POST')
                         <div class="form-group">
                             <label for="client">Pilih Client</label>
                             <select class="form-control" id="client" name="input_berkas_id">
                                 <option value="" selected>Silahkan pilih Client</option>
                                 @foreach($inputBerkass as $inputBerkas)
-                                    <option value="{{ $inputBerkas->id }}" {{ $inputan->input_berkas_id == $inputBerkas->id ? 'selected' : '' }} data-content="{{ $inputBerkas->nama_pemilik }}">{{ $inputBerkas->nama_pemilik }}-{{$inputBerkas->jenis_berkas}}-{{$inputBerkas->alamat}}</option>
+                                    <option value="{{ $inputBerkas->id }}" data-content="{{ $inputBerkas->nama_pemilik }}" {{ $inputan->input_berkas_id == $inputBerkas->id ? 'selected' : '' }}>
+                                        {{ $inputBerkas->nama_pemilik }}-{{$inputBerkas->jenis_berkas}}-{{$inputBerkas->alamat}}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -27,7 +29,9 @@
                             <select class="form-control" id="jenis_layanan" name="jenis_layanan_id">
                                 <option value="" selected>Silahkan pilih Jenis Layanan</option>
                                 @foreach($jenisLayanans as $jenisLayanan)
-                                    <option value="{{ $jenisLayanan->id }}" {{ $inputan->jenis_layanan_id == $jenisLayanan->id ? 'selected' : '' }} data-content="{{ $jenisLayanan->isi_inputan }}">{{ $jenisLayanan->jenis_layanan }}</option>
+                                    <option value="{{ $jenisLayanan->id }}" data-content="{{ $jenisLayanan->isi_inputan }}" {{ $inputan->jenis_layanan_id == $jenisLayanan->id ? 'selected' : '' }}>
+                                        {{ $jenisLayanan->jenis_layanan }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -43,19 +47,26 @@
 </div>
 
 <script>
-    // Ketika pilihan jenis layanan berubah
-    document.getElementById('jenis_layanan').addEventListener('change', function() {
-        var select = document.getElementById('jenis_layanan');
-        var selectedOption = select.options[select.selectedIndex];
-        var isiInputan = selectedOption.getAttribute('data-content');
+    document.addEventListener('DOMContentLoaded', function() {
+        var selectedOption = document.querySelector('#jenis_layanan option:checked');
+        if (selectedOption) {
+            var isiInputan = selectedOption.getAttribute('data-content');
+            var isiInputanObj = JSON.parse(isiInputan);
+            var content = JSON.parse('{!! $inputan->content !!}');
+            renderDynamicInputs(isiInputanObj, content);
+        }
 
-        // Ubah isiInputan dari string JSON menjadi objek JavaScript
-        var isiInputanObj = JSON.parse(isiInputan);
+        document.getElementById('jenis_layanan').addEventListener('change', function() {
+            var select = document.getElementById('jenis_layanan');
+            var selectedOption = select.options[select.selectedIndex];
+            var isiInputan = selectedOption.getAttribute('data-content');
+            var isiInputanObj = JSON.parse(isiInputan);
+            renderDynamicInputs(isiInputanObj, {});
+        });
+    });
 
-        // Hapus input fields yang ada sebelumnya
+    function renderDynamicInputs(isiInputanObj, content) {
         document.getElementById('dynamicInputs').innerHTML = '';
-
-        // Buat input fields untuk setiap key dalam objek JSON
         Object.keys(isiInputanObj).forEach(function(key) {
             var [fieldName, fieldType] = key.split('@');
             var inputField;
@@ -72,10 +83,16 @@
                 inputField = document.createElement('input');
                 inputField.setAttribute('type', 'checkbox');
                 inputField.setAttribute('class', 'form-check-input large-checkbox ');
+                if (content[fieldName] === 'checked') {
+                    inputField.checked = true;
+                }
             }
 
             inputField.setAttribute('name', fieldName);
             inputField.setAttribute('placeholder', fieldName);
+            if (content[fieldName] && fieldType !== 'checkbox') {
+                inputField.value = content[fieldName];
+            }
 
             var label = document.createElement('label');
             label.textContent = fieldName;
@@ -97,13 +114,11 @@
 
             document.getElementById('dynamicInputs').appendChild(div);
         });
-    });
+    }
 
-    // Menangani submit form
     document.getElementById('dynamicForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
-        // Mengambil nilai dari setiap input field
         var inputs = document.querySelectorAll('#dynamicInputs input');
         var formData = {};
 
@@ -120,17 +135,14 @@
             formData[input.getAttribute('name')] = inputValue;
         });
 
-        // Mengubah objek menjadi JSON
         var jsonData = JSON.stringify(formData);
 
-        // Membuat input hidden untuk menyimpan JSON data
         var hiddenInput = document.createElement('input');
         hiddenInput.setAttribute('type', 'hidden');
         hiddenInput.setAttribute('name', 'content');
         hiddenInput.setAttribute('value', jsonData);
         document.getElementById('dynamicForm').appendChild(hiddenInput);
 
-        // Submit form
         this.submit();
     });
 </script>
@@ -142,7 +154,14 @@
     }
     .form-check-input {
         margin-left: 0;
-        margin-top: 0px; /* Menambahkan margin di atas checkbox */
+        margin-top: 0px;
+    }
+    .form-check {
+        margin-top: 0px;
+    }
+    .checkboxstyle {
+        margin-bottom: 40px;
     }
 </style>
+
 @endsection

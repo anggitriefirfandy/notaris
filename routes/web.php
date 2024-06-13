@@ -46,3 +46,7 @@ Route::get('get_inputans', [HasilInputanController::class, 'getInputans'])->name
 Route::get('/inputan/{uid}', '@show')->name('inputan.show');
 
 Route::get('cetakagenda', [InputanController::class, 'cetakagenda'])->name('cetakagenda')->middleware(['auth']);
+
+// web.php
+Route::get('/inputan/{id}/edit', [InputanController::class, 'edit'])->name('inputan.edit');
+Route::post('/inputan/{id}', [InputanController::class, 'update'])->name('inputan.update');

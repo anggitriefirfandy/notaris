@@ -62,7 +62,7 @@
 
 					</ul>
 				</li>
-				<li class="menu">
+				<!-- <li class="menu">
 					<a href="#rev" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 						<div class="">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
@@ -79,11 +79,11 @@
 					<ul class="collapse submenu list-unstyled" id="rev" data-parent="#accordionExample">
 						<li>
 						<a href="/hasil_kerja"> report staff </a>
-							<!-- <a href="/review_pekerjaan"> Review Notaris </a> -->
+
 						</li>
 
 					</ul>
-				</li>
+				</li> -->
 
 				<li class="menu">
 					<a href="#kwitansi" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -206,6 +206,38 @@
 
 
 				@endIsStaff
+				@IsPetugas
+				<li class="menu">
+					<a href="/inputan" aria-expanded="false" class="dropdown-toggle">
+						<div class="">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
+								<path d="M20 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM4 19V5h7v14H4zm9 0V5h7l.001 14H13z"></path>
+								<path d="M15 7h3v2h-3zm0 4h3v2h-3z"></path>
+							</svg>
+							<span>cek agenda</span>
+						</div>
+					</a>
+
+				</li>
+
+
+				@endIsPetugas
+				@IsPetugas2
+				<li class="menu">
+					<a href="/inputan" aria-expanded="false" class="dropdown-toggle">
+						<div class="">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
+								<path d="M20 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM4 19V5h7v14H4zm9 0V5h7l.001 14H13z"></path>
+								<path d="M15 7h3v2h-3zm0 4h3v2h-3z"></path>
+							</svg>
+							<span>cek agenda</span>
+						</div>
+					</a>
+
+				</li>
+
+
+				@endIsPetugas2
 
 			</ul>
 		</nav>

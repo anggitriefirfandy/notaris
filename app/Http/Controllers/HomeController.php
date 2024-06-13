@@ -29,6 +29,10 @@ class HomeController extends Controller
             return view('pages.dashboard.dashboardnotaris');
         } elseif (Auth::user()->role_id == 2) {
             return view('pages.dashboard.dashboardstaff');
+        } elseif (Auth::user()->role_id == 3) {
+            return view('pages.dashboard.dashboardpetugascek');
+        } elseif (Auth::user()->role_id == 4) {
+            return view('pages.dashboard.dashboardpetugascek');
         } else {
             return view('pages.dashboard.dashboardpeserta');
         }

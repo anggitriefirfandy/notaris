@@ -3,7 +3,7 @@
 <head>
    <meta charset="UTF-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <title>Cetak Jadwal</title>
+   <title>Cetak Agenda</title>
    <style>
       table {
          border-collapse: collapse;
@@ -202,7 +202,7 @@
 <header>
          <div class="center-div">
             <img
-               src="https://res.cloudinary.com/dk55ik2ah/image/upload/v1716350971/logonotaris_etgr2e.png"
+               src="https://res.cloudinary.com/dk55ik2ah/image/upload/v1717481009/garuda-removebg-preview_kcutih.png"
                class="img float-left"
                width="90"
                alt=""
@@ -228,7 +228,7 @@
                <br />
                <br />
                <br />
-               Daftar Agenda
+               NOTARIS & PPAT
                <br />
                <br />
                <br />
@@ -239,7 +239,7 @@
                <br />
                <br />
                <br />
-               Tahun {{\Carbon\Carbon::now()->subyear()->format('Y')}}
+               HEPPY BANDARANAIKE, SH, MKn.
                <br />
                <br />
                <br />
@@ -249,7 +249,7 @@
                <br />
                <br />
                <br />
-               NOTARIS HEPPY BANDARANAIKE, SH, MKn
+               Jalan Raya Slawi-Pangkah, Desa Pangkah, Kec. Pangkah
                <br />
                <br />
                <br />
@@ -263,20 +263,27 @@
                <br>
                <br>
                <br>
-
+               Kabupaten Tegal-Jawa Tengah
                <br />
                <br />
                <br />
                <br />
                <br />
+               <br>
+               <br>
+               <br>
+               Telp. (0283)  6196459
             </p>
+         </div>
+         <div>
+
          </div>
       </header>
 
       <table class="table table-bordered" width="50%" border="1">
     <thead>
         <tr style="background-color: darkgray">
-            <th style="text-align:center" colspan="2">daftar proses agenda</th>
+            <th style="text-align:center" colspan="2">Kelengkapan Proses Agenda</th>
         </tr>
     </thead>
     <tbody>
