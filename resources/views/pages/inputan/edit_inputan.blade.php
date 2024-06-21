@@ -6,8 +6,13 @@
     <div class="row layout-top-spacing">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header">
-                    <h5>Edit Inputan</h5>
+                <div class="card-header d-flex justify-content-between">
+                    <div>
+                        <h5>Edit Inputan</h5>
+                    </div>
+                    <div>
+                        <a href="{{route('inputan.index')}}" class="btn btn-dark btn-sm">Kembali</a>
+                    </div>
                 </div>
                 <div class="card-body">
                     <form id="dynamicForm" action="{{ route('inputan.update', $inputan->id) }}" method="post" enctype="multipart/form-data">
@@ -67,7 +72,9 @@
 
     function renderDynamicInputs(isiInputanObj, content) {
         document.getElementById('dynamicInputs').innerHTML = '';
-        Object.keys(isiInputanObj).forEach(function(key) {
+        var inputElements = [];
+
+        Object.keys(isiInputanObj).forEach(function(key, index) {
             var [fieldName, fieldType] = key.split('@');
             var inputField;
 
@@ -82,7 +89,7 @@
             } else if (fieldType === 'checkbox') {
                 inputField = document.createElement('input');
                 inputField.setAttribute('type', 'checkbox');
-                inputField.setAttribute('class', 'form-check-input large-checkbox ');
+                inputField.setAttribute('class', 'form-check-input large-checkbox');
                 if (content[fieldName] === 'checked') {
                     inputField.checked = true;
                 }
@@ -113,7 +120,39 @@
             }
 
             document.getElementById('dynamicInputs').appendChild(div);
+            inputElements.push(inputField);
         });
+
+        // Add event listeners for sequential enable
+        inputElements.forEach((input, index) => {
+            if (index > 0) {
+                input.disabled = true;
+            }
+            input.addEventListener('input', () => {
+                if (isInputValid(input)) {
+                    if (index < inputElements.length - 1) {
+                        inputElements[index + 1].disabled = false;
+                    }
+                } else {
+                    for (let i = index + 1; i < inputElements.length; i++) {
+                        inputElements[i].disabled = true;
+                    }
+                }
+            });
+        });
+
+        // Initially enable the first input
+        if (inputElements.length > 0) {
+            inputElements[0].disabled = false;
+        }
+    }
+
+    function isInputValid(input) {
+        if (input.type === 'checkbox') {
+            return input.checked;
+        } else {
+            return input.value.trim() !== '';
+        }
     }
 
     document.getElementById('dynamicForm').addEventListener('submit', function(event) {

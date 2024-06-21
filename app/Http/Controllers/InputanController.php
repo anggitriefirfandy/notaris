@@ -113,7 +113,7 @@ class InputanController extends Controller
     public function edit($id)
     {
         // Log::info('Edit ID: ' . $id);
-        $inputan = inputan_model::find($id);
+        $inputan = inputan_model::where('uid', $id)->first();
         if (!$inputan) {
             return redirect()->route('inputan.index')->with('error', 'Data tidak ditemukan.');
         }
@@ -137,7 +137,9 @@ class InputanController extends Controller
             'content' => $request->content,
         ]);
 
-        return redirect()->route('inputan.index')->with('success', 'Data berhasil diperbarui.');
+        Alert::success('Berhasil', 'Data berhasil diupdate');
+
+        return redirect('/inputan');
     }
 
     /**

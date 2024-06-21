@@ -15,7 +15,30 @@
 						</div>
 					</a>
 				</li>
+				<li class="menu">
+					<a href="/tracking" aria-expanded="false" class="dropdown-toggle">
+						<div class="">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
+							<path d="M12 2C8.13 2 5 5.13 5 9c0 4.95 7 13 7 13s7-8.05 7-13c0-3.87-3.13-7-7-7zm0 18.28S7 12.9 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 3.9-5 11.28-5 11.28zM11 6h2v5h-2z"></path>
+						</svg>
+
+							<span>Lacak Dokumen</span>
+						</div>
+					</a>
+				</li>
+
 				@IsAdmin
+				<li class="menu">
+					<a href="/location" aria-expanded="false" class="dropdown-toggle">
+						<div class="">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
+							<path d="M12 2C8.13 2 5 5.13 5 9c0 4.95 7 13 7 13s7-8.05 7-13c0-3.87-3.13-7-7-7zm0 18.28S7 12.9 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 3.9-5 11.28-5 11.28zM11 6h2v5h-2z"></path>
+						</svg>
+
+							<span>Setting location</span>
+						</div>
+					</a>
+				</li>
 				<li class="menu">
 					<a href="#components" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 						<div class="">
@@ -62,7 +85,7 @@
 
 					</ul>
 				</li>
-				<!-- <li class="menu">
+				 <li class="menu">
 					<a href="#rev" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 						<div class="">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
@@ -78,12 +101,12 @@
 					</a>
 					<ul class="collapse submenu list-unstyled" id="rev" data-parent="#accordionExample">
 						<li>
-						<a href="/hasil_kerja"> report staff </a>
+						<a href="/absensi_admin"> Absensi Staff </a>
 
 						</li>
 
 					</ul>
-				</li> -->
+				</li>
 
 				<li class="menu">
 					<a href="#kwitansi" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -179,6 +202,18 @@
 
 				@endIsPeserta
 				@IsStaff
+				<li class="menu">
+					<a href="/absensi_user" aria-expanded="false" class="dropdown-toggle">
+						<div class="">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
+								<path d="M20 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM4 19V5h7v14H4zm9 0V5h7l.001 14H13z"></path>
+								<path d="M15 7h3v2h-3zm0 4h3v2h-3z"></path>
+							</svg>
+							<span>Absen</span>
+						</div>
+					</a>
+
+				</li>
 				<li class="menu">
 					<a href="/input_berkas" aria-expanded="false" class="dropdown-toggle">
 						<div class="">

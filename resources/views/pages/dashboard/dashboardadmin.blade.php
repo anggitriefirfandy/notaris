@@ -13,7 +13,6 @@
         background-clip: border-box;
     }
 
-
     .cards-body {
         padding: 1.5rem;
         flex: 1 1 auto;
@@ -41,6 +40,7 @@
         height: 400px;
     }
 </style>
+
 <div>
     <div>
         <br>
@@ -48,28 +48,86 @@
         <h1 style="margin-left:15px">Selamat Datang Admin</h1>
         <br>
     </div>
+
     <div class="layout-px-spacing">
-        <div class="col-xl-3 col-lg-6">
-            <div class="cards cards-stats mb-4 mb-xl-0">
-                <div class="cards-body">
-                    <div class="row">
-                        <div class="col">
-                            <center>
-                                <h5 class="cards-title text-uppercase text-muted mb-0">Jumlah Client</h5>
-                            </center>
-                            <br>
-                            <center>
-                                <span class="h6 font-weight-bold mb-0" id="jumlahClient"></span>
-                            </center>
+        <div class="row">
+
+            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                <div class="cards cards-stats">
+                    <div style="background-color: Aqua;" class="cards-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="text-left">
+                                <span style="color: black;" class="h2 font-weight-bold mb-0" id="jumlahClient"></span>
+                                <br>
+                                <h5 style="color: black;" class="cards-title text-uppercase  mb-0">Klien</h5>
+                            </div>
+                            <div class="text-right">
+                                <img src="https://res.cloudinary.com/dk55ik2ah/image/upload/v1718680337/client_i2vvqn.png" alt="" style="width: 50px; height: 50px;">
+                            </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
+
+            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                <!-- Card 1 -->
+                <div class="cards cards-stats">
+                    <div style="background-color: LightBlue;" class="cards-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="text-left">
+                                <span style="color: black;" class="h2 font-weight-bold mb-0" id="jumlahLayanan"></span>
+                                <br>
+                                <h5 style="color: black;" class="cards-title text-uppercase  mb-0">Layanan</h5>
+                            </div>
+                            <div class="text-right">
+                                <img src="https://res.cloudinary.com/dk55ik2ah/image/upload/v1718682422/list_wgpsrp.png" alt="" style="width:50px; height: 50px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                <!-- Card 2 -->
+                <div class="cards cards-stats">
+                    <div style="background-color: LightCoral;" class="cards-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="text-left">
+                                <span style="color: black;" class="h2 font-weight-bold mb-0" id="jumlahAgenda"></span>
+                                <br>
+                                <h5 style="color: black;" class="cards-title text-uppercase  mb-0">Agenda</h5>
+                            </div>
+                            <div class="text-right">
+                                <img src="https://res.cloudinary.com/dk55ik2ah/image/upload/v1718683011/license_q5ekqj.png" alt="" style="width:50px; height: 50px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-6 mb-4 mb-xl-0">
+                <!-- Card 3 -->
+                <div class="cards cards-stats">
+                    <div style="background-color: LightGreen;" class="cards-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="text-left">
+                                <span style="color: black;" class="h2 font-weight-bold mb-0" id="jumlahStaff"></span>
+                                <br>
+                                <h5 style="color: black;" class="cards-title text-uppercase  mb-0">Staff</h5>
+                            </div>
+                            <div class="text-right">
+                            <img src="https://res.cloudinary.com/dk55ik2ah/image/upload/v1718683404/team_fauexe.png" alt="" style="width:50px; height: 50px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
         <br>
         <br>
+
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-body">
@@ -79,15 +137,15 @@
             </div>
         </div>
     </div>
-        <script>
-            $(document).ready(function() {
+
+    <script>
+        $(document).ready(function() {
             $.ajax({
                 url: '/getjumlahclient',
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
                     $('#jumlahClient').text(data.jumlah);
-                    // console.log(data);
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
@@ -95,85 +153,120 @@
             });
         });
         $(document).ready(function() {
-        $.ajax({
-            url: '/getjenisberkas',
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                console.log(data);
-
-                var jumlahSertifikat = data.jumlah_sertifikat;
-                var jumlahYasan = data.jumlah_yasan;
-
-                var options = {
-                    series: [jumlahSertifikat, jumlahYasan],
-                    chart: {
-                        width: 600,
-                        type: 'pie',
-                    },
-                    title: {
-                        text: 'Jumlah berdasarkan jenis berkas',
-                        align: 'center',
-                        margin: 10,
-                        offsetX: 0,
-                        offsetY: 0,
-                        floating: false,
-                        style: {
-                            fontSize: '15px',
-                            fontWeight: 'bold',
-                            fontFamily: undefined,
-                            color: '#263238'
-                        },
-                    },
-                    legend: {
-                        show: true,
-                        showForSingleSeries: false,
-                        showForNullSeries: true,
-                        showForZeroSeries: true,
-                        position: 'bottom',
-                        horizontalAlign: 'center',
-                        floating: false,
-                        fontSize: '14px',
-                        fontFamily: 'Helvetica, Arial',
-                        fontWeight: 400,
-                        formatter: undefined,
-                        inverseOrder: false,
-                        width: undefined,
-                        height: undefined,
-                        tooltipHoverFormatter: undefined,
-                        customLegendItems: [],
-                        offsetX: 0,
-                        offsetY: 0,
-                        labels: {
-                            colors: undefined,
-                            useSeriesColors: false
-                        },
-                    },
-                    labels: ['Sertifikat', 'Yasan'],
-                    responsive: [{
-                        breakpoint: 480,
-                        options: {
-                            chart: {
-                                width: 200
-                            },
-                            legend: {
-                                position: 'bottom'
-                            },
-
-                        }
-                    }]
-                };
-
-                var chart = new ApexCharts(document.querySelector("#chart"), options);
-                chart.render();
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
+            $.ajax({
+                url: '/getjenislayanan',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#jumlahLayanan').text(data.jumlah);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
         });
-    });
+        $(document).ready(function() {
+            $.ajax({
+                url: '/getjumlahagenda',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#jumlahAgenda').text(data.jumlah);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url: '/getjumlahstaff',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#jumlahStaff').text(data.jumlah);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
 
-        </script>
-    </div>
+        $(document).ready(function() {
+            $.ajax({
+                url: '/getjenisberkas',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var jumlahSertifikat = data.jumlah_sertifikat;
+                    var jumlahYasan = data.jumlah_yasan;
+
+                    var options = {
+                        series: [jumlahSertifikat, jumlahYasan],
+                        chart: {
+                            width: 600,
+                            type: 'pie',
+                        },
+                        title: {
+                            text: 'Jumlah berdasarkan jenis berkas',
+                            align: 'center',
+                            margin: 10,
+                            offsetX: 0,
+                            offsetY: 0,
+                            floating: false,
+                            style: {
+                                fontSize: '15px',
+                                fontWeight: 'bold',
+                                fontFamily: undefined,
+                                color: '#263238'
+                            },
+                        },
+                        legend: {
+                            show: true,
+                            showForSingleSeries: false,
+                            showForNullSeries: true,
+                            showForZeroSeries: true,
+                            position: 'bottom',
+                            horizontalAlign: 'center',
+                            floating: false,
+                            fontSize: '14px',
+                            fontFamily: 'Helvetica, Arial',
+                            fontWeight: 400,
+                            formatter: undefined,
+                            inverseOrder: false,
+                            width: undefined,
+                            height: undefined,
+                            tooltipHoverFormatter: undefined,
+                            customLegendItems: [],
+                            offsetX: 0,
+                            offsetY: 0,
+                            labels: {
+                                colors: undefined,
+                                useSeriesColors: false
+                            },
+                        },
+                        labels: ['Sertifikat', 'Yasan'],
+                        responsive: [{
+                            breakpoint: 480,
+                            options: {
+                                chart: {
+                                    width: 200
+                                },
+                                legend: {
+                                    position: 'bottom'
+                                },
+                            }
+                        }]
+                    };
+
+                    var chart = new ApexCharts(document.querySelector("#chart"), options);
+                    chart.render();
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    </script>
 </div>
 @endsection

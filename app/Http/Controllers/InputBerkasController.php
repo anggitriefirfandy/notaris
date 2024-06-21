@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\inputan_model;
 use App\Models\input_berkas;
+use App\Models\jenis_layanan_model;
+use App\Models\staff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
@@ -315,13 +318,55 @@ class InputBerkasController extends Controller
         $jumlahClient = $query->count();
 
         return response()->json(['jumlah' => $jumlahClient]);
-        // try {
-        //     $jumlahMahasiswa = MahasiswaModel::count();
-        //     return response()->json(['jumlah' => $jumlahMahasiswa]);
-        // } catch (\Exception $e) {
-        //     Log::error($e->getMessage());
-        //     return response()->json(['error' => 'Terjadi kesalahan server'], 500);
-        // }
+
+    }
+    public function getJenisLayanan(Request $request)
+    {
+
+        $year = $request->query('year'); // Ambil tahun dari parameter query
+
+        $query = jenis_layanan_model::query();
+
+        if ($year) {
+            $query->whereYear('created_at', $year);
+        }
+
+        $jenisLayanan = $query->count();
+
+        return response()->json(['jumlah' => $jenisLayanan]);
+
+    }
+    public function getJumlahAgenda(Request $request)
+    {
+
+        $year = $request->query('year'); // Ambil tahun dari parameter query
+
+        $query = inputan_model::query();
+
+        if ($year) {
+            $query->whereYear('created_at', $year);
+        }
+
+        $jumlahAgenda = $query->count();
+
+        return response()->json(['jumlah' => $jumlahAgenda]);
+
+    }
+    public function getJumlahStaff(Request $request)
+    {
+
+        $year = $request->query('year'); // Ambil tahun dari parameter query
+
+        $query = staff::query();
+
+        if ($year) {
+            $query->whereYear('created_at', $year);
+        }
+
+        $jumlahStaff = $query->count();
+
+        return response()->json(['jumlah' => $jumlahStaff]);
+
     }
     public function getjenisberkas(Request $request)
     {

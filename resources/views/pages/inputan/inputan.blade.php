@@ -60,6 +60,7 @@
                                             <td class="text-center" style="display: flex; justify-content: center;">
                                                 <a href="{{ route('inputan.show', $value->uid) }}" class="btn btn-info mb-1 mr-1 rounded-circle" data-toggle="tooltip" title='Detail'><i class="bx bx-info-circle bx-sm"></i></a>
                                                 <a href="{{ route('inputan.edit', $value->uid) }}" class="btn btn-warning mb-1 mr-1 rounded-circle" data-toggle="tooltip" title='Update'><i class="bx bx-edit bx-sm"></i></a>
+
                                                 @IsPetugas
                                                 @else
                                                 <form action="{{ route('inputan.destroy', $value->uid) }}" method="post">

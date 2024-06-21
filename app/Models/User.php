@@ -37,6 +37,10 @@ class User extends Authenticatable
                 return 'Unknown';
         }
     }
+    public function absensi()
+    {
+        return $this->hasOne(absensi_model::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
