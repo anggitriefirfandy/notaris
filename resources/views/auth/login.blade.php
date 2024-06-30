@@ -52,7 +52,7 @@
     // Tunda pengiriman form selama 5 detik (5000 ms)
     setTimeout(function() {
       document.form1.submit();
-    }, 5000);
+    }, 1000);
 
     return false; // Mencegah pengiriman form segera
   }

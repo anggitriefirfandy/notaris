@@ -15,6 +15,10 @@ class inputan_model extends Model
     {
         return $this->belongsTo(jenis_layanan_model::class);
     }
+    public function jenisLayananId()
+    {
+        return $this->belongsTo(jenis_layanan_model::class, 'jenis_layanan_id');
+    }
     public function inputBerkas()
     {
         return $this->belongsTo(input_berkas::class);

@@ -135,38 +135,59 @@
 				@endIsAdmin
 				@IsNotaris
 				<li class="menu">
-					<a href="/lembar_notaris" aria-expanded="false" class="dropdown-toggle">
+					<a href="#components" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 						<div class="">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
-								<path d="M20 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM4 19V5h7v14H4zm9 0V5h7l.001 14H13z"></path>
-								<path d="M15 7h3v2h-3zm0 4h3v2h-3z"></path>
+								<path d="M20 6c0-2.168-3.663-4-8-4S4 3.832 4 6v2c0 2.168 3.663 4 8 4s8-1.832 8-4V6zm-8 13c-4.337 0-8-1.832-8-4v3c0 2.168 3.663 4 8 4s8-1.832 8-4v-3c0 2.168-3.663 4-8 4z"></path>
+								<path d="M20 10c0 2.168-3.663 4-8 4s-8-1.832-8-4v3c0 2.168 3.663 4 8 4s8-1.832 8-4v-3z"></path>
 							</svg>
-							<span>Lembar Kerja</span>
+							<span>Data Client</span>
+						</div>
+						<div>
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+								<polyline points="9 18 15 12 9 6"></polyline>
+							</svg>
 						</div>
 					</a>
+					<ul class="collapse submenu list-unstyled" id="components" data-parent="#accordionExample">
+					<li><a href="/input_berkas"> Input Berkas </a></li>
 
+					</ul>
 				</li>
 				<li class="menu">
-					<!-- <a href="/hasil_kerja" aria-expanded="false" class="dropdown-toggle"> -->
-					<a href="/riwayat_doc" aria-expanded="false" class="dropdown-toggle">
+					<a href="#app" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 						<div class="">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
-								<path d="M20 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM4 19V5h7v14H4zm9 0V5h7l.001 14H13z"></path>
-								<path d="M15 7h3v2h-3zm0 4h3v2h-3z"></path>
+								<path d="M21 20V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2zM9 18H7v-2h2v2zm0-4H7v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm4 4h-2v-2h2v2zm0-4h-2v-2h2v2zm2-5H5V7h14v2z"></path>
 							</svg>
-							<span>Dokumen Kerja</span>
+							<span>Input Agenda</span>
+						</div>
+						<div>
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+								<polyline points="9 18 15 12 9 6"></polyline>
+							</svg>
 						</div>
 					</a>
+					<ul class="collapse submenu list-unstyled" id="app" data-parent="#accordionExample">
+						<li>
+							<a href="/jenis_layanan"> Jenis Layanan</a>
+							<a href="/inputan"> Tambah Agenda</a>
 
+
+
+						</li>
+
+
+					</ul>
 				</li>
 				<li class="menu">
-					<a href="kwitansi_notaris" aria-expanded="false" class="dropdown-toggle">
+					<a href="/tugas" aria-expanded="false" class="dropdown-toggle">
 						<div class="">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
 								<path d="M20 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM4 19V5h7v14H4zm9 0V5h7l.001 14H13z"></path>
 								<path d="M15 7h3v2h-3zm0 4h3v2h-3z"></path>
 							</svg>
-							<span>Daftar Kwitansi</span>
+							<span>Tugas</span>
 						</div>
 					</a>
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\location_model; // pastikan nama model benar
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LocationController extends Controller
 {
@@ -37,6 +39,7 @@ class LocationController extends Controller
         // Simpan data ke database
         $location->save();
 
-        return redirect()->back()->with('success', 'Pengaturan lokasi berhasil diperbarui.');
+        Alert::success('Berhasil', 'Titik pusat berhasil diupdate');
+        return redirect('/location');
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\InputBerkasController;
 use App\Http\Controllers\JenisLayananController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\TugasController;
 use App\Http\Controllers\UserStaffController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,7 +35,9 @@ Route::post('/tracking/search', [App\Http\Controllers\TrackingController::class,
 Route::resource('input_berkas', InputBerkasController::class)->middleware(['auth']);
 Route::resource('jenis_layanan', JenisLayananController::class)->middleware(['auth']);
 Route::resource('inputan', InputanController::class)->middleware(['auth']);
-Route::resource('hasil_inputan', HasilInputanController::class)->middleware(['auth']);
+Route::resource('tugas', TugasController::class)->middleware(['auth']);
+Route::patch('/tugas/{id}/selesai', [TugasController::class, 'markAsCompleted'])->name('tugas.selesai');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/absensi_user', [AbsensiController::class, 'index'])->name('absensi.user');
 
@@ -48,6 +51,11 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/location', [LocationController::class, 'index'])->name('location.index');
 Route::put('/location', [LocationController::class, 'update'])->name('location.update');
 
+// routes otp
+
+Route::get('/verify-otp', [App\Http\Controllers\Auth\LoginController::class, 'showVerifyOtpForm'])->name('verify-otp');
+Route::post('/verify-otp', [App\Http\Controllers\Auth\LoginController::class, 'verifyOtp'])->name('verify-otp.verify');
+
 Route::resource('balik_nama', BalikNamaController::class)->middleware(['auth']);
 
 Route::resource('staff', StaffController::class)->middleware(['auth']);
@@ -57,7 +65,7 @@ Route::get('/getjenislayanan', [InputBerkasController::class, 'getjenislayanan']
 Route::get('/getjumlahagenda', [InputBerkasController::class, 'getjumlahagenda'])->name('getjumlahagendas')->middleware(['auth']);
 Route::get('/getjumlahstaff', [InputBerkasController::class, 'getjumlahstaff'])->name('getjumlahstaffs')->middleware(['auth']);
 Route::get('/getjenisberkas', [InputBerkasController::class, 'getjenisberkas'])->name('getjenisberkass')->middleware(['auth']);
-Route::get('get_inputans', [HasilInputanController::class, 'getInputans'])->name('get_inputans');
+Route::get('/get-inputan', [App\Http\Controllers\InputanController::class, 'getInputan']);
 Route::get('/inputan/{uid}', '@show')->name('inputan.show');
 
 Route::get('cetakagenda', [InputanController::class, 'cetakagenda'])->name('cetakagenda')->middleware(['auth']);

@@ -127,17 +127,27 @@
 
         <br>
         <br>
-
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-center" id="chart">
+        <div class="d-flex justify-content-between">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center" id="chart">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <canvas id="myChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         $(document).ready(function() {
             $.ajax({
@@ -204,7 +214,7 @@
                     var options = {
                         series: [jumlahSertifikat, jumlahYasan],
                         chart: {
-                            width: 600,
+                            width: 378,
                             type: 'pie',
                         },
                         title: {
@@ -267,6 +277,87 @@
                 }
             });
         });
+
+        $(document).ready(function() {
+        $.ajax({
+            url: '/get-inputan',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                var layananCount = {};
+
+                // Process data and count jenis_layanan_id
+                $.each(data, function(key, item) {
+                    var jenis_layanan_name = item.jenis_layanan.jenis_layanan; // Mengambil nama jenis layanan dari relasi
+
+                    if (layananCount[jenis_layanan_name]) {
+                        layananCount[jenis_layanan_name]++;
+                    } else {
+                        layananCount[jenis_layanan_name] = 1;
+                    }
+                });
+
+                // Generate chart data
+                var labels = Object.keys(layananCount);
+                var counts = Object.values(layananCount);
+
+                // Generate random colors for each bar
+                var dynamicColors = function() {
+                    var r = Math.floor(Math.random() * 255);
+                    var g = Math.floor(Math.random() * 255);
+                    var b = Math.floor(Math.random() * 255);
+                    return "rgba(" + r + "," + g + "," + b + ", 0.7)";
+                };
+
+                var backgroundColors = labels.map(function() {
+                    return dynamicColors();
+                });
+
+                // Create bar chart
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Jumlah Berkas ',
+                            data: counts,
+                            backgroundColor: backgroundColors,
+                            borderColor: backgroundColors,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: true,
+                                labels: {
+                                    color: 'rgb(255, 99, 132)'
+                                }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Diagram Banyaknya Jenis Layanan', // judul chart
+                                font: {
+                                    size: 18
+                                }
+                            }
+                        }
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText); // Tambahkan log jika ada kesalahan dalam AJAX
+            }
+        });
+    });
     </script>
 </div>
 @endsection

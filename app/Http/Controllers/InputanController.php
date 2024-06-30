@@ -173,4 +173,9 @@ class InputanController extends Controller
         // Display the PDF in the browser
         return $pdf->stream();
     }
+    public function getInputan()
+    {
+        $inputans = inputan_model::with('jenisLayanan')->get();
+        return response()->json($inputans);
+    }
 }

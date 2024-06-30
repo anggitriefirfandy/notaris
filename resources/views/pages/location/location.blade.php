@@ -2,7 +2,9 @@
 
 @section('content')
 <div class="container">
-    <h1>Pengaturan Lokasi</h1>
+    <div class="card">
+        <div class="card-body">
+        <h1>Pengaturan Lokasi</h1>
     <form action="{{ route('location.update') }}" method="POST">
         @csrf
         @method('PUT')
@@ -21,6 +23,9 @@
         <button type="submit" class="btn btn-primary">Update</button>
         <button type="button" class="btn btn-secondary" id="refresh-button">Refresh</button>
     </form>
+        </div>
+    </div>
+
 </div>
 
 <script>
