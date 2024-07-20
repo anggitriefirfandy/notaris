@@ -165,12 +165,6 @@ class InputanController extends Controller
         // Render the view as PDF
         $pdf = FacadePdf::loadView('pages.cetak.cetakagenda', $data);
 
-        // Optional: Download the PDF file
-        // if ($request->has('download')) {
-        //     return $pdf->download('cetakkalender.pdf');
-        // }
-
-        // Display the PDF in the browser
         return $pdf->stream();
     }
     public function getInputan()
@@ -178,4 +172,11 @@ class InputanController extends Controller
         $inputans = inputan_model::with('jenisLayanan')->get();
         return response()->json($inputans);
     }
+
+    public function getProsesTerakhir()
+    {
+        $inputans = inputan_model::with('jenisLayanan')->get();
+        return response()->json($inputans);
+    }
+
 }

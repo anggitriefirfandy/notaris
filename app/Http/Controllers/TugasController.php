@@ -51,7 +51,7 @@ class TugasController extends Controller
         $model->status = 0; // Set status to 0 automatically
         $model->save();
 
-        Alert::success('Berhasil', 'Data berhasil diperbarui');
+        Alert::success('Berhasil', 'Data berhasil ditambahkan');
 
         return redirect('/tugas');
     }

@@ -25,10 +25,9 @@
                                     <th>No</th>
                                     <th>Nama</th>
                                     <th>Jenis Layanan</th>
-                                    <th>Tanggal Masuk</th>
+                                    <!-- <th>Tanggal Masuk</th> -->
                                     <th>Status</th>
-                                    <th>Proses Terakhir</th>
-                                    <th>Aksi</th>
+                                    <!-- <th>Proses Terakhir</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -37,7 +36,7 @@
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $value->nama_pemilik ?? 'Tidak Diketahui' }} - {{ $value->jenis_berkas ?? 'Tidak Diketahui' }}</td>
                                         <td>{{ $value->jenis_layanan ?? 'Tidak Diketahui' }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($value->tanggal_masuk)->isoFormat('D MMMM Y') }}</td>
+                                        <!-- <td>{{ \Carbon\Carbon::parse($value->tanggal_masuk)->isoFormat('D MMMM Y') }}</td> -->
                                         <td>
                                             @php
                                                 $contentArray = json_decode($value->content, true);
@@ -51,7 +50,7 @@
                                             @endphp
                                             <div class="badge {{ $status == 'Complete' ? 'badge-info' : 'badge-danger' }}">{{ $status }}</div>
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             @php
                                                 $prosesTerakhir = '';
                                                 $lastKey = '';
@@ -67,12 +66,12 @@
                                                 }
                                             @endphp
                                             {{ $prosesTerakhir }}
-                                        </td>
-                                        <td class="text-center">
+                                        </td> -->
+                                        <!-- <td class="text-center">
                                             <a href="{{ route('inputan.show', $value->uid) }}" class="btn btn-info mb-1 mr-1 rounded-circle" data-toggle="tooltip" title='Detail'><i class="bx bx-info-circle bx-sm"></i></a>
                                             <a href="{{ route('inputan.edit', $value->uid) }}" class="btn btn-warning mb-1 mr-1 rounded-circle" data-toggle="tooltip" title='Update'><i class="bx bx-edit bx-sm"></i></a>
-                                            <!-- <a href="/cetakagenda?inputanid={{ $value->uid }}" target="_blank" class="btn btn-primary mb-1 mr-1" data-toggle="tooltip" title='Cetak'>Cetak</a> -->
-                                        </td>
+
+                                        </td> -->
                                     </tr>
                                 @endforeach
                             </tbody>

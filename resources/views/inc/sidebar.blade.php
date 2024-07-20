@@ -15,7 +15,7 @@
 						</div>
 					</a>
 				</li>
-				<li class="menu">
+				<!-- <li class="menu">
 					<a href="/tracking" aria-expanded="false" class="dropdown-toggle">
 						<div class="">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
@@ -25,7 +25,7 @@
 							<span>Lacak Dokumen</span>
 						</div>
 					</a>
-				</li>
+				</li> -->
 
 				@IsAdmin
 				<li class="menu">
@@ -39,7 +39,7 @@
 						</div>
 					</a>
 				</li>
-				<li class="menu">
+				<!-- <li class="menu">
 					<a href="#components" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 						<div class="">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
@@ -58,8 +58,8 @@
 					<li><a href="/input_berkas"> Input Berkas </a></li>
 
 					</ul>
-				</li>
-				<li class="menu">
+				</li> -->
+				<!-- <li class="menu">
 					<a href="#app" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
 						<div class="">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
@@ -73,17 +73,22 @@
 							</svg>
 						</div>
 					</a>
-					<ul class="collapse submenu list-unstyled" id="app" data-parent="#accordionExample">
-						<li>
-							<a href="/jenis_layanan"> Jenis Layanan</a>
-							<a href="/inputan"> Tambah Agenda</a>
 
+				</li> -->
+				<li class="menu">
+					<a href="/jenis_layanan" aria-expanded="false" class="dropdown-toggle">
+						<div class="">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+							<path d="M0 0h24v24H0V0z" fill="none"/>
+							<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+							<path d="M12 10c-1.1 0-2 .9-2 2h4c0-1.1-.9-2-2-2z" opacity=".1"/>
+							<path d="M12 16c-1.1 0-2-.9-2-2h4c0 1.1-.9 2-2 2z" opacity=".1"/>
+							<path d="M12 8c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2-2 4-2 4h6c0-2.21-1.79-4-4-4z"/>
+						</svg>
 
-
-						</li>
-
-
-					</ul>
+							<span>Jenis Layanan</span>
+						</div>
+					</a>
 				</li>
 				 <li class="menu">
 					<a href="#rev" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -170,7 +175,6 @@
 					</a>
 					<ul class="collapse submenu list-unstyled" id="app" data-parent="#accordionExample">
 						<li>
-							<a href="/jenis_layanan"> Jenis Layanan</a>
 							<a href="/inputan"> Tambah Agenda</a>
 
 

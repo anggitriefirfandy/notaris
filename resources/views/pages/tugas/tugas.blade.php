@@ -50,7 +50,7 @@
 
                                         <td class="text-center" style="display: flex; justify-content: center;">
 
-                                            <a href="{{ route('tugas.edit', $value->uid) }}" class="btn btn-warning mb-1 mr-1 rounded-circle" data-toggle="tooltip" title='Update'><i class="bx bx-edit bx-sm"></i></a>
+                                            <!-- <a href="{{ route('tugas.edit', $value->uid) }}" class="btn btn-warning mb-1 mr-1 rounded-circle" data-toggle="tooltip" title='Update'><i class="bx bx-edit bx-sm"></i></a> -->
 
 
 

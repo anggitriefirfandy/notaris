@@ -27,6 +27,8 @@ class User extends Authenticatable
     public function roleName()
     {
         switch ($this->role_id) {
+            case 0:
+                return 'Admin';
             case 1:
                 return 'Notaris';
             case 2:

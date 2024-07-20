@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Location; // Pastikan untuk mengimpor model Location jika belum
+use App\Mail\OtpMail;
 use App\Models\location_model;
-use App\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
 
     public function __construct()
     {
@@ -25,19 +25,18 @@ class LoginController extends Controller
     {
         if ($user->role_id == 0) {
             // Generate OTP code for role_id 0 admin
-            // $emailAddress = 'irfandyanggit@gmail.com'; // Email address to send OTP to
-            // $otpCode = mt_rand(100000, 999999); // Generate random 6-digit code
-            // $user->otp_code = $otpCode;
-            // $user->save();
+            $otpCode = mt_rand(100000, 999999); // Generate random 6-digit code
+            $user->otp_code = $otpCode;
+            $user->save();
 
-            // // Send OTP code via email to the user's email address
-            // Mail::to($emailAddress)->send(new OtpMail($otpCode));
-
-            // return view('pages.auth_otp.verify_otp');
-            return redirect()->intended($this->redirectPath());
+            // Send OTP code via email to the user's email address
+            Mail::to($user->email)->send(new OtpMail($otpCode));
+            \Log::info('email udh dikirim');
+            // Redirect to OTP verification page
+            return view('pages.auth_otp.verify_otp');
         } else {
             // For users with role_id other than 0, perform location validation
-            $location = location_model::first(); // Get the first location record from database
+            $location = location_model::first();
 
             if (!$location) {
                 Auth::logout();
@@ -45,7 +44,7 @@ class LoginController extends Controller
             }
 
             // Check if user's location is within the allowed radius
-            $userLatitude = $request->input('latitude'); // Adjust this according to your form input
+            $userLatitude = $request->input('latitude');
             $userLongitude = $request->input('longitude');
 
             if ($userLatitude && $userLongitude) {
@@ -99,21 +98,29 @@ class LoginController extends Controller
 
     public function verifyOtp(Request $request)
     {
+        \Log::info('verifikasi pencocokan otp sudah jalan');
         $request->validate([
-            'otp_code' => 'required|digits:6',
+            'otp_code' => 'required|numeric',
         ]);
 
-        $user = Auth::user();
+        $user = auth()->user();
+
+        // Tampilkan nilai $user->otp_code dan $request->otp_code di log atau dd()
+        \Log::info('User OTP Code: ' . $user->otp_code);
+        \Log::info('Request OTP Code: ' . $request->otp_code);
 
         if ($user->otp_code == $request->otp_code) {
-            $user->otp_code = null; // Reset OTP code after successful verification
+            // OTP is correct
+            // Reset OTP code
+            $user->otp_code = null;
             $user->save();
 
-            return redirect()->intended('/home'); // Redirect to home page after successful login
+            // Redirect to intended path
+            return view('pages.dashboard.dashboardstaff'); // Arahkan ke dashboard yang sesuai
+        } else {
+            // OTP is incorrect
+            return redirect()->back()->withErrors(['otp_code' => 'Invalid OTP code']);
         }
-
-        return back()->withErrors([
-            'otp_code' => 'Kode OTP yang dimasukkan salah. Silakan coba lagi.',
-        ]);
     }
+
 }

@@ -45,8 +45,25 @@
         <br>
     </div>
     <div class="layout-px-spacing">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-left mt-4">
             <div class="col-lg-6">
+                @include('inc.other.tracking')
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Dropdown filter -->
+                        <select id="jenisLayananDropdown" style="margin-left:15px">
+                            <option value="">Pilih Jenis Layanan</option>
+                        </select>
+                        <!-- Chart -->
+                        <canvas id="chartProsesTerakhir" style="margin-left:15px"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-left mt-4">
+        <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex justify-content-center" id="chart">
@@ -61,6 +78,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
@@ -68,6 +86,135 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type="text/javascript">
+    $(document).ready(function() {
+    $('#tracking-search-form').on('submit', function(event) {
+        event.preventDefault();
+        let formData = $(this).serialize();
+
+        console.log("Form submitted");  // Debugging statement
+
+        $.ajax({
+            url: "{{ route('tracking.search') }}",
+            method: "POST",
+            data: formData,
+            success: function(data) {
+                console.log("AJAX success");  // Debugging statement
+                $('#tracking-results').html(data);
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX error: ", error);  // Debugging statement
+            }
+        });
+    });
+});
+
+// script chart dinamis batang proses terakhir
+$(document).ready(function(){
+        // Fetch data from the endpoint
+        $.ajax({
+            url: '/get_proses_terakhir',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+                // Populate the dropdown with unique service types
+                var uniqueJenisLayanan = [...new Set(data.map(item => item.jenis_layanan.jenis_layanan))];
+                uniqueJenisLayanan.forEach(function(jenis){
+                    $('#jenisLayananDropdown').append(new Option(jenis, jenis));
+                });
+
+                // Initialize the chart
+                var ctx = document.getElementById('chartProsesTerakhir').getContext('2d');
+                var chartProsesTerakhir = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Grafik Berkas di Proses Terakhir',
+                            data: [],
+                            backgroundColor: [],
+                            borderColor: [],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+                // Colors for the bars
+                var colors = [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ];
+                var borderColors = [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ];
+
+                // Update chart based on dropdown selection
+                $('#jenisLayananDropdown').on('change', function(){
+                    var selectedJenis = $(this).val();
+                    if (selectedJenis) {
+                        var filteredData = data.filter(item => item.jenis_layanan.jenis_layanan === selectedJenis);
+                        var contentKeys = [];
+                        var nullOrEmptyCounts = [];
+
+                        filteredData.forEach(function(item){
+                            var content = JSON.parse(item.content);
+                            var keys = Object.keys(content);
+                            for (var i = 1; i < keys.length; i++) {
+                                if (content[keys[i]] === null || content[keys[i]] === '') {
+                                    var prevKey = keys[i - 1];
+                                    var index = contentKeys.indexOf(prevKey);
+                                    if (index === -1) {
+                                        contentKeys.push(prevKey);
+                                        nullOrEmptyCounts.push(1);
+                                    } else {
+                                        nullOrEmptyCounts[index]++;
+                                    }
+                                    break;
+                                }
+                            }
+                        });
+
+                        var backgroundColors = [];
+                        var borderColorsArray = [];
+                        for (var i = 0; i < contentKeys.length; i++) {
+                            backgroundColors.push(colors[i % colors.length]);
+                            borderColorsArray.push(borderColors[i % borderColors.length]);
+                        }
+
+                        chartProsesTerakhir.data.labels = contentKeys;
+                        chartProsesTerakhir.data.datasets[0].data = nullOrEmptyCounts;
+                        chartProsesTerakhir.data.datasets[0].backgroundColor = backgroundColors;
+                        chartProsesTerakhir.data.datasets[0].borderColor = borderColorsArray;
+                        chartProsesTerakhir.update();
+                    } else {
+                        // Reset the chart if no selection
+                        chartProsesTerakhir.data.labels = [];
+                        chartProsesTerakhir.data.datasets[0].data = [];
+                        chartProsesTerakhir.data.datasets[0].backgroundColor = [];
+                        chartProsesTerakhir.data.datasets[0].borderColor = [];
+                        chartProsesTerakhir.update();
+                    }
+                });
+            }
+        });
+    });
     $(document).ready(function() {
         $.ajax({
             url: '/get-inputan',

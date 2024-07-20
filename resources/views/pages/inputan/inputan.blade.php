@@ -22,7 +22,9 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Jenis Layanan</th>
+                                        <th>Tanggal Masuk</th>
                                         <th>Status</th>
+                                        <th>Proses Terakhir</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -40,6 +42,7 @@
                                             <td width="1%">{{ $key + 1 }}</td>
                                             <td>{{ $value->inputBerkas->nama_pemilik }}-{{ $value->inputBerkas->jenis_berkas }}</td>
                                             <td>{{ $value->jenisLayanan->jenis_layanan }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($value->created_at)->isoFormat('D MMMM Y') }}</td>
                                             <td>
                                                 @php
                                                     $contentArray = json_decode($value->content, true);
@@ -56,6 +59,23 @@
                                                 @else
                                                     <div class="badge badge-danger">On Progress</div>
                                                 @endif
+                                            </td>
+                                            <td>
+                                                @php
+                                                    $prosesTerakhir = '';
+                                                    $lastKey = '';
+                                                    foreach ($contentArray as $key => $content) {
+                                                        $lastKey = $key;
+                                                        if (is_null($content) || $content === '' || $content == 'unchecked') {
+                                                            $prosesTerakhir = $key;
+                                                            break;
+                                                        }
+                                                    }
+                                                    if ($prosesTerakhir == '') {
+                                                        $prosesTerakhir = $lastKey;
+                                                    }
+                                                @endphp
+                                                {{ $prosesTerakhir }}
                                             </td>
                                             <td class="text-center" style="display: flex; justify-content: center;">
                                                 <a href="{{ route('inputan.show', $value->uid) }}" class="btn btn-info mb-1 mr-1 rounded-circle" data-toggle="tooltip" title='Detail'><i class="bx bx-info-circle bx-sm"></i></a>

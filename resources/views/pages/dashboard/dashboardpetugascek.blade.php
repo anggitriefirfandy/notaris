@@ -65,7 +65,7 @@
     <div>
         <br>
         <br>
-        <h1 style="margin-left:15px">Selamat Datang, Petugas {{ $user->name }}</h1>
+        <h1 style="margin-left:15px">Selamat Datang, Petugas Cek {{ $user->name }}</h1>
         <br>
     </div>
     <div class="layout-px-spacing">

@@ -2,24 +2,24 @@
 
 @section('content')
     <div class="container">
-        <h2>Masukkan Kode OTP</h2>
+        <h2 style="color:white">Masukkan Kode OTP</h2>
 
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+                    <li>{{ $error }}</li>
                     @endforeach
                 </ul>
             </div>
         @endif
 
-        <form action="{{ route('verify-otp.verify') }}" method="POST">
+        <form action="{{ route('verifyotp') }}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group">
                 <label for="otp_code">Kode OTP</label>
-                <input type="text" id="otp_code" name="otp_code" class="form-control" required>
+                <input type="text" id="otpcode_verify" name="otpcode_verify" class="form-control" required>
             </div>
 
             <button type="submit" class="btn btn-primary">Verifikasi OTP</button>

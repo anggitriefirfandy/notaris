@@ -27,8 +27,22 @@ class HomeController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->role_id == 0) {
+        \Log::info($user);
+
+        if ($user->role_id == 0 && !$user->otp_code) {
+            // Pengguna dengan role_id 0 harus memverifikasi OTP terlebih dahulu
+            return redirect()->route('verify-otp');
+        }
+
+        // Jika pengguna adalah admin (role_id == 0) dan sudah memasukkan OTP, arahkan ke dashboard admin
+        if ($user->role_id == 0 && $user->otp_code) {
+            \Log::info('index home lagi diakses');
             return view('pages.dashboard.dashboardadmin');
+        }
+
+        // Untuk pengguna dengan role_id selain 0, langsung arahkan ke halaman dashboard sesuai dengan peran mereka
+        if ($user->role_id == 1 && $user->otp_code) {
+            return view('pages.dashboard.dashboardnotaris');
         } elseif ($user->role_id == 1) {
             return view('pages.dashboard.dashboardnotaris');
         } elseif ($user->role_id == 2) {

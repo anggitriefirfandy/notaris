@@ -19,9 +19,9 @@
     </form>
   </div>
   <div class="footer">
-    <div class="register-link">
+    <!-- <div class="register-link">
       <a href="{{ route('register') }}" class="btn btn-primary">Klik disini untuk melamar pekerjaan staff</a>
-    </div>
+    </div> -->
   </div>
 </div>
 

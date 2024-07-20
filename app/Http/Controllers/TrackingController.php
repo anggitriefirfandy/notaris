@@ -35,9 +35,8 @@ class TrackingController extends Controller
             })
             ->select('inputans.*', 'input_berkas.nama_pemilik', 'input_berkas.tanggal_masuk', 'input_berkas.jenis_berkas', 'jenis_layanans.jenis_layanan')
             ->get();
-        // return $inputan;
 
-        return view('pages.tracking.tracking', ['inputan' => $inputan]);
+        return view('inc.partial.tracking-results', ['inputan' => $inputan]);
     }
     public function create()
     {
